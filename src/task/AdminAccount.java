@@ -1,13 +1,21 @@
 package task;
-import task.UserAccount;
+
 
 public class AdminAccount extends UserAccount{
     private int accessLevel ;
 
-    public AdminAccount(String userName , String email, int accessLevel)
+    public AdminAccount(String userName , String email, int accessLevel) throws Exception
     {
         super(userName , email);
-        this.accessLevel = accessLevel ;
+        if(accessLevel < 0)
+        {
+            throw new Exception("Invalid Access Level");
+        }
+        else
+        {
+            this.accessLevel = accessLevel ;
+        }
+
 
     }
     public String toString()

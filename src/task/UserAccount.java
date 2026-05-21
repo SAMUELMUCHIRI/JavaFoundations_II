@@ -1,25 +1,40 @@
 package task;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class UserAccount  {
 
     private String userName ;
     private String email ;
     private int loginCount ;
-    private static int totalAccounts;
+    private static int totalAccounts = 0;
 
     public UserAccount(String userName , String email)
     {
-        this.userName =userName;
-        this.email = email;
+        // centralize validation in setters so constructors and setters behave the same
+        setUserName(userName);
+        try {
+            setEmail(email);
+        } catch (Exception e) {
+            // wrap checked validation exception in unchecked so construction fails clearly
+            throw new IllegalArgumentException(e.getMessage(), e);
+        }
         totalAccounts++;
     }
 
     public UserAccount()
     {
-        this.userName = "guest";
-        this.email = "guest@tana.com";
+        // use setters for consistency
+        setUserName("guest");
+        try {
+            setEmail("guest@tana.com");
+        } catch (Exception e) {
+            // should not happen for the hard-coded valid email
+            throw new IllegalStateException(e);
+        }
+        totalAccounts++;
     }
-
+    
     public String getUserName()
     {
         return this.userName;
@@ -30,19 +45,23 @@ public class UserAccount  {
     }
     public void setUserName(String userName)
     {
+        if (userName == null || userName.trim().isEmpty()) {
+            throw new IllegalArgumentException("userName must not be null or blank");
+        }
         this.userName = userName ;
 
     }
     public void setEmail(String email) throws Exception
     {
-        if (email.contains("@"))
-        {
-            this.email = email ;
-        }
-        else
-        {
+        if (email == null) {
             throw new Exception("Enter a valid email !");
         }
+        String trimmed = email.trim();
+        // simple but stronger validation than contains("@")
+        if (!trimmed.matches("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$")) {
+            throw new Exception("Enter a valid email !");
+        }
+        this.email = trimmed ;
     }
     public void logIn()
     {
@@ -54,9 +73,9 @@ public class UserAccount  {
     {
         return totalAccounts;
     }
-
+    @Override
     public String toString()
     {
-        return "\t\t Account Summary \n\tUserName \t: "+this.userName+"\n\tEmail \t: "+this.email+"\n\tloginCount \t: "+ this.loginCount;
+        return "\t\t Account Summary \n\tUserName \t: "+this.userName+"\n\tEmail \t\t: "+this.email+"\n\tloginCount \t: "+ this.loginCount;
     }
 }
