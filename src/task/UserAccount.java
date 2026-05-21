@@ -1,13 +1,12 @@
 package task;
 
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class UserAccount  {
 
     private String userName ;
     private String email ;
     private int loginCount ;
-    private static int totalAccounts = 0;
+    private static int totalAccounts ;
 
     public UserAccount(String userName , String email)
     {
