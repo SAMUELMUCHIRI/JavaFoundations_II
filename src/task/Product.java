@@ -25,10 +25,10 @@ public class Product {
 
     public void describe()
     {
-        System.out.println("Product: "+ name +"\t|\t Category: "+ category +" \t|\t Qty: "+ quantity + " \t|\t Unit Price: $"+ price +" \t|\t Total Value: $"+ getTotalValue());
+        System.out.println("Product: "+ name +"\t\t|\t Category: "+ category +" \t\t|\t Qty: "+ quantity + " \t\t|\t Unit Price: $"+ price +" \t\t|\t Total Value: $"+ getTotalValue());
     }
 
-    public String product()
+    public String getName()
     {
         return name;
     }

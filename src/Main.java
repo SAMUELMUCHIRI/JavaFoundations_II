@@ -15,16 +15,16 @@ class Main {
             item.describe();
         }
 
-        double TotalValue= 0.0;
-        String Product ="";
+        double totalValue= 0.0;
+        String highestProductName ="";
         for(Product item : items) {
-            if (TotalValue <= item.getTotalValue())
+            if (totalValue <= item.getTotalValue())
             {
-                TotalValue = item.getTotalValue();
-                Product = item.product();
+                totalValue = item.getTotalValue();
+                highestProductName = item.getName();
             }
         }
-        System.out.println("\nProduct with the highest total value "+ String.valueOf(Product) + " with a value of "+TotalValue);
+        System.out.println("\nProduct with the highest total value "+ highestProductName + " with a value of "+totalValue);
 
     }
 
